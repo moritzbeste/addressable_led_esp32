@@ -30,7 +30,7 @@ def run(block, max_iter=1000, speed=math.pi/10):
             np[i] = color
         np.write()
         for i in range(len(points)):
-            np[i] = (0,0,0)
+            np[i] = (0, 0, 0)
         np.write()
 
         iteration += 1
