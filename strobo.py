@@ -1,4 +1,4 @@
-import machine, neopixel, math
+import machine, neopixel, time, math
 
 
 def hsv_to_rgb(h, s, v):
@@ -18,18 +18,18 @@ def hsv_to_rgb(h, s, v):
     if i == 5: return (v, p, q)
 
 
-def run(block, max_iter=1000, speed=math.pi/10):
+def run(N, block, max_iter=1000, speed=math.e):
     PIN = 2
-    np = neopixel.NeoPixel(machine.Pin(PIN), len(points))
+    np = neopixel.NeoPixel(machine.Pin(PIN), N)
     iteration = 0
     t = 0.0
     while True:
-        color = hsv_to_rgb(t, 1.0, 0.5)
+        color = hsv_to_rgb(t, 1.0, 1.0)
         t += speed
-        for i in range(len(points)):
+        for i in range(N):
             np[i] = color
         np.write()
-        for i in range(len(points)):
+        for i in range(N):
             np[i] = (0, 0, 0)
         np.write()
 
@@ -38,4 +38,4 @@ def run(block, max_iter=1000, speed=math.pi/10):
             break
 
 if __name__ == "__main__":
-    run(True)
+    run(301, True)

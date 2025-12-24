@@ -39,7 +39,7 @@ def run(points, block, max_iter=1000, speed=0.05, stripe_freq=0.5):
     while True:
         for i, (x, y) in enumerate(points):
             phase = x * kx + y * ky + t
-            color = hsv_to_rgb(phase, 1.0, 0.2)
+            color = hsv_to_rgb(phase, 1.0, 1.0)
             np[i] = color
         np.write()
         t += speed
