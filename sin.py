@@ -10,30 +10,25 @@ def read_data(filepath):
     return points
 
 
-def assign_color(np, i, P, t):
-    np[i] = (255, 255, 0) if P[1] > -abs(2 * (t)) + 1 else (0, 0, 255)
-
-
-def run(points, block, max_iter=1000, speed=0.03):
+def run(points, block, max_iter=1000, speed=0.2):
     PIN = 2
-    N = 301
-    np = neopixel.NeoPixel(machine.Pin(PIN), N)
+    np = neopixel.NeoPixel(machine.Pin(PIN), len(points))
 
-    t = -1.0
     iteration = 0
+    t = 0.0
     while True:
-        for i, P in enumerate(points):
-            assign_color(np, i, P, t)
+        for i, (x, y) in enumerate(points):
+            brightness = (math.sin(10 * y - t) + 1) / 2
+            brightness = math.pow(brightness, 10)
+            color = (int(255 * brightness), int(255 * brightness), int(255 * brightness))
+            np[i] = color
+
         np.write()
         t += speed
-        if t >= 1:
-            t -= 2
-
         iteration += 1
         if not block and iteration >= max_iter:
             break
 
-
-if __name__=="__main__":
+if __name__ == "__main__":
     points = read_data("data.csv")
     run(points, True)

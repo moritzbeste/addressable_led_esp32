@@ -1,5 +1,4 @@
-import machine, time, rotating_line, level, stripes, firework
-
+import machine, time, rotating_line, level, rainbow, sin, breathe
 
 def read_data(filepath):
     points = []
@@ -13,7 +12,9 @@ def read_data(filepath):
 if __name__=="__main__":
     points = read_data("data.csv")
     while True:
-        rotating_line.run(points, False)
-        level.run(points, False)
-        stripes.run(points, False)
-        firework.run(points, False)
+        level.run(points=points, block=False, max_iter=500, speed=0.05)
+        sin.run(points=points, block=False, max_iter=250, speed=0.5)
+        rainbow.run(points=points, block=False, max_iter=500, speed=0.05)
+        breathe.run(points=points, block=False, max_iter=250, speed=0.5)
+
+

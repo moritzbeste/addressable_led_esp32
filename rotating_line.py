@@ -1,8 +1,17 @@
-import machine, neopixel, time, math, main
+import machine, neopixel, time, math
+
+
+def read_data(filepath):
+    points = []
+    with open(file=filepath) as f:
+        for line in f:
+            x, y = line.strip().split(",")
+            points.append((float(x), float(y)))
+    return points
 
 
 def line_points(t):
-    pi = 22.0 / 7
+    pi = math.pi
     t *= pi
     A = (math.cos(t), math.sin(t))
     B = (math.cos(pi - t), math.sin(2 * pi - t))
@@ -45,5 +54,5 @@ def run(points, block, max_iter=1000):
 
 
 if __name__=="__main__":
-    points = main.read_data("data.csv")
+    points = read_data("data.csv")
     run(points, True)

@@ -1,5 +1,14 @@
-import machine, neopixel, time, main
-import math
+import machine, neopixel, math
+
+
+def read_data(filepath):
+    points = []
+    with open(file=filepath) as f:
+        for line in f:
+            x, y = line.strip().split(",")
+            points.append((float(x), float(y)))
+    return points
+
 
 def hsv_to_rgb(h, s, v):
     h = h % 1.0
@@ -40,5 +49,5 @@ def run(points, block, max_iter=1000, speed=0.05, stripe_freq=0.5):
             break
 
 if __name__ == "__main__":
-    points = main.read_data("data.csv", True)
-    run(points)
+    points = read_data("data.csv")
+    run(points, True)
